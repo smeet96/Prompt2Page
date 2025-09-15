@@ -1,1 +1,1 @@
-{"root":["./src/index.ts"],"version":"5.8.2"}
+{"root":["./src/design.ts","./src/index.ts","./src/prompts.ts","./src/utils/constants.ts","./src/utils/markdown.ts","./src/utils/stripindent.ts"],"version":"5.8.2"}

@@ -18,6 +18,7 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const genai_1 = require("@google/genai");
+const prompts_1 = require("./prompts");
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const ai = new genai_1.GoogleGenAI({ apiKey: GEMINI_API_KEY });
 function main() {
@@ -25,7 +26,20 @@ function main() {
         var _a, e_1, _b, _c;
         const response = yield ai.models.generateContentStream({
             model: 'gemini-2.0-flash-001',
-            contents: 'what is 69 + 69',
+            contents: [
+                {
+                    role: 'model',
+                    parts: [
+                        {
+                            text: (0, prompts_1.getSystemPrompt)(),
+                        },
+                    ],
+                },
+                {
+                    role: 'user',
+                    parts: [{ text: 'Create a simple todo app' }],
+                },
+            ],
         });
         try {
             for (var _d = true, response_1 = __asyncValues(response), response_1_1; response_1_1 = yield response_1.next(), _a = response_1_1.done, !_a; _d = true) {
