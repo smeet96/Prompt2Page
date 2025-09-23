@@ -1,5 +1,5 @@
 export interface DesignScheme {
-  palette: { [key: string]: string }; // Changed from string[] to object
+  palette: { [key: string]: string }; 
   features: string[];
   font: string[];
 }
