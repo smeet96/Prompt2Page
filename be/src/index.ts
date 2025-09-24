@@ -52,20 +52,28 @@ return;
 
 })
 
+type Message ={
+  role: "user" | "system"
+  content: string
+}
 
 app.post("/chat" , async (req,res)=> {
-  const messages = req.body.messages
+  const messages:Message[] = req.body.messages
 
-  const input = [
- {
-        role: "system",
-        content: getSystemPrompt()
+ const formattedMessages = messages.map((m) => ({
+      role: m.role,
+      parts: [{ text: m.content }],
+    }));
+
+    const contents = [{
+      role: "model",
+      parts:[{text:getSystemPrompt()}]
       },
-]
+    ]
 
   const response = await ai.models.generateContent({
   model: 'gemini-2.0-flash-001',
-  contents: messages
+  contents: [...contents, ...formattedMessages]
 })
 
 console.log(response)

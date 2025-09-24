@@ -60,15 +60,18 @@ app.post("/template", (req, res) => __awaiter(void 0, void 0, void 0, function* 
 app.post("/chat", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e;
     const messages = req.body.messages;
-    const input = [
-        {
-            role: "system",
-            content: (0, prompts_1.getSystemPrompt)()
+    const formattedMessages = messages.map((m) => ({
+        role: m.role,
+        parts: [{ text: m.content }],
+    }));
+    const contents = [{
+            role: "model",
+            parts: [{ text: (0, prompts_1.getSystemPrompt)() }]
         },
     ];
     const response = yield ai.models.generateContent({
         model: 'gemini-2.0-flash-001',
-        contents: messages
+        contents: [...contents, ...formattedMessages]
     });
     console.log(response);
     res.json({
