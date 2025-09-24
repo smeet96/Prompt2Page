@@ -3,9 +3,11 @@ import {GoogleGenAI} from '@google/genai';
 import { BASE_PROMPT, getSystemPrompt } from './prompts';
 import { basePrompt as reactBasePrompt } from './defaults/react';
 import { basePrompt as nodeBasePrompt } from './defaults/node';
+import cors from "cors"
 import express from 'express'
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 

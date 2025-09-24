@@ -17,9 +17,11 @@ const genai_1 = require("@google/genai");
 const prompts_1 = require("./prompts");
 const react_1 = require("./defaults/react");
 const node_1 = require("./defaults/node");
+const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use((0, cors_1.default)());
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const ai = new genai_1.GoogleGenAI({ apiKey: GEMINI_API_KEY });
 app.post("/template", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
